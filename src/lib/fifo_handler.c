@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "printer.h"
 #include "fifo_handler.h"
 #include "file_manager.h"
 #include "split_search.h"
@@ -72,4 +73,5 @@ void create_fifo()
 
     //Inizializzazione della variabile condivisa con i figli
     write_fifo(0);
+		print_message("FIFO correctly generated.");
 }

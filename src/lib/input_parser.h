@@ -1,12 +1,6 @@
 #ifndef input_parser
 #define input_parser
 
-// MAXLEN of strings:
-#define MAXLEN 100
-typedef char string[MAXLEN];
-
-void get_input(int *argc, char **argv, string * out_file, string * input_file, string * value, int * max);
-void print_help();
-void print_error();
+void get_input(int argc, char ** argv, char ** output_file, char ** input_file, char ** value, int * max);
 
 #endif

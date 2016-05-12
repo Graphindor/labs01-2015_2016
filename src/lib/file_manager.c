@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <string.h>
 
+#include "printer.h"
 #include "fifo_handler.h"
 #include "file_manager.h"
 #include "split_search.h"
@@ -17,7 +18,7 @@
 /*
 /Aggiunta del nuovo indice in fondo al file di <output>
 */
-void addFound(char * output, int index)
+void add_found(char * output, int index)
 {
 	//Apertura del file di output in modalità append
 	FILE * writer = fopen(output, "a+");
@@ -31,7 +32,7 @@ void addFound(char * output, int index)
 /*
 / Lettura del valore all'ennesima posizione
 */
-char * get_value(char * input, int index, int show)
+char * get_value(char * input, int index)
 {
 	FILE * reader_offset = fopen("offsets.txt", "r");
 	// Inizializzazione delle variabili riga attuale e somma offset
@@ -64,9 +65,6 @@ char * get_value(char * input, int index, int show)
 	//Lettura di <reading_bytes> da reader in <retval>
 	fgets(retval, reading_bytes, reader);
 
-	if(show == 1)
-		printf("\t\tHo letto %s saltando %d bytes\n", retval, jumping_bytes);
-
 	//Chiusura degli stream
 	fclose(reader);
 	fclose(reader_offset);
@@ -80,13 +78,11 @@ char * get_value(char * input, int index, int show)
 *
 /Ritorna anche la cardinalità dell'insieme dei dati
 */
-int create_offsets(char * input, int show)
+int create_offsets(char * input)
 {
-	//Apertura <input>
-	if( access( input, F_OK ) == -1 ) {
-    print_error("Error: input file does not exist.");
-		exit(0);
-  }
+	//Constrollo che <input> esista
+	if(access(input, F_OK) == -1)
+    	print_error("Error: input file does not exist.");
 
 	FILE *reader = fopen(input, "r");
 	//Creazione del file temporaneo di offsets
@@ -115,18 +111,16 @@ int create_offsets(char * input, int show)
 		//Aggiornamento variabili riga e  dimensione totale
 		total_size += size;
 		count++;
-		if(show == 1)
-			//printf("Ho letto %s, with size %d\n", line, size);
+
 		//Aggiunta al file di offsets
 		fprintf(writer, "%d\n", size);
 	}
 
-	if(show == 1)
-		//printf("\n\nIl file pesa %d\tE ha %d righe\n", total_size, count);
-
 	//Chiusura stream e conseguente salvataggio del file di offsets
 	fclose(reader);
 	fclose(writer);
+
+	print_message("Offsets file correctly generated.");
 
 	return count;
 }
@@ -137,4 +131,5 @@ int create_offsets(char * input, int show)
 void remove_offsets()
 {
 	remove("offsets.txt");
+	print_message("Offsets file correctly removed.");
 }
