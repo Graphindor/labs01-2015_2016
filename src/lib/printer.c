@@ -30,7 +30,7 @@ void print_help ()
 void print_error(char * message)
 {
 	printf("# ");
-	//Cambio colore in [01;31m (rosso acceso) 
+	//Cambio colore in [01;31m (rosso acceso)
 	printf("\033[01;31m");
 	//Stampa di <message>
 	printf("%s\n", message);
@@ -124,25 +124,25 @@ void print_progressbar(int index, int total_length, int progressbar_lenght)
 	switch(waiter_class)
 	{
 		case 0:
-			
+
 			waiter = "\\";
 			break;
 
 		case 1:
-		
-			waiter = "|";	
+
+			waiter = "|";
 			break;
-		
+
 		case 2:
 
 			waiter = "/";
 			break;
-		
+
 		case 3:
-		
+
 			waiter = "-";
 			break;
-		
+
 		default:
 			break;
 	}

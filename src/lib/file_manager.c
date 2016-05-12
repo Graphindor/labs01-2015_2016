@@ -82,7 +82,7 @@ int create_offsets(char * input)
 {
 	//Constrollo che <input> esista
 	if(access(input, F_OK) == -1)
-    	print_error("Error: input file does not exist.");
+    	print_error("Errore: input file non esiste");
 
 	FILE *reader = fopen(input, "r");
 	//Creazione del file temporaneo di offsets
@@ -120,7 +120,7 @@ int create_offsets(char * input)
 	fclose(reader);
 	fclose(writer);
 
-	print_message("Offsets file correctly generated.");
+	print_message("Offsets file generato correttamente");
 
 	return count;
 }
@@ -131,5 +131,5 @@ int create_offsets(char * input)
 void remove_offsets()
 {
 	remove("./tmp/offsets.txt");
-	print_message("Offsets file correctly removed.");
+	print_message("Offsets file rimosso correttamente");
 }

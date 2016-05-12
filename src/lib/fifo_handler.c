@@ -64,10 +64,10 @@ void create_fifo()
     //Creazione della fifo
     if (mkfifo("myFIFO", FILE_MODE) == -1)
         //Seganalazione di errore se la creazione della fifo non è andata a buon fine
-        print_error("Error: creazione di myFIFO");
+        print_error("Errore: creazione di myFIFO");
 
     //Inizializzazione della variabile condivisa con i figli
     write_fifo(0);
 	//Seganalazione dell'avvenuto comlpetamento della fifo senza errori
-    print_message("FIFO correctly generated.");
+    print_message("FIFO correttamente generato");
 }

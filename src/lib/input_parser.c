@@ -41,12 +41,12 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
                 //In caso non cia siano altri argomenti es: -i senza niente dopo
                 if (i >= argc)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Errore: input file\n");
+                    print_error("Errore: <input file> non c'è niente dopo il marcatore di input\n");
 
                 //In caso il primo carattere sia "-" (trattino) è un percorso inconsistente
                 if (strncmp(argv[i], "-", 1) == 0)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Errore: input file\n");
+                    print_error("Errore: <input file> persorso inconsistente\n");
 
                 //Allocazione dei byte che servono per contenere il percorso di input
                 *input_file = (char *)malloc(sizeof(char) * strlen(argv[i]));
@@ -55,7 +55,7 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
             }
             else
                 //Segnalazione di errore e uscita dal programma
-                print_error("Errore: input file");
+                print_error("Errore: <input file> valore già settato");
         }
 
         //In caso il marcatore sia quello di output
@@ -70,12 +70,12 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
                 //In caso non cia siano altri argomenti es: -o senza niente dopo
                 if (i >= argc)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Errore: output file\n");
+                    print_error("Errore: <output file> non c'è niente dopo il marcatore di output\n");
 
                 //In caso il primo carattere sia "-" (trattino) è un percorso inconsistente
                 if (strncmp(argv[i], "-", 1) == 0)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Errore: output file\n");
+                    print_error("Errore: <output file> persorso inconsistente\n");
 
                 //Allocazione dei byte che servono per contenere il percorso di output
                 *output_file = (char *)malloc(sizeof(char) * strlen(argv[i]));
@@ -84,7 +84,7 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
             }
             else
                 //Segnalazione di errore e uscita dal programma
-                print_error("Errore: output file\n");
+                print_error("Errore: <output file> valore già settato\n");
         }
 
         //In caso il marcatore sia quello del valore da cercare
@@ -98,7 +98,7 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
                 //In caso non cia siano altri argomenti es: -v senza niente dopo
                 if (i >= argc)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Errore: value\n");
+                    print_error("Errore: <value> non c'è niente dopo il marcatore di valore da cercare\n");
 
                 //Allocazione dei byte che servono per contenere il percorso di output
                 *value = (char *)malloc(sizeof(char) * strlen(argv[i]));
@@ -107,35 +107,35 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
             }
             else
                 //Segnalazione di errore e uscita dal programma
-                print_error("Error: value\n");
+                print_error("Error: <value> valore già settato\n");
         }
 
         if(strcmp(argv[i], "-m") == 0)
         {
-            i++;
             //In caso la variabile di max non sia ancora stata settata
             if (*max == -1)
             {
+                i++;
                 //In caso non cia siano altri argomenti es: -v senza niente dopo
                 if (i >= argc)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Error: amax result\n");
+                    print_error("Error: <max result> non c'è niente dopo il marcatore di massimi risultati\n");
 
                 //In caso il primo carattere sia "-" (trattino) cioè un limite negativo
                 if (strncmp(argv[i], "-", 1) == 0)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Error: cmax result\n");
+                    print_error("Error: <max result> non poò essere negativo\n");
 
                 //Conversione da stringa a intero della variabile di massimo #risultati
                 *max = atoi(argv[i]);
 
                 if(*max == 0)
                     //Segnalazione di errore e uscita dal programma
-                    print_error("Error: invalid max result\n");
+                    print_error("Error: <max result> non può essere nullo (zero)\n");
             }
             else
                 //Segnalazione di errore e uscita dal programma
-                print_error("Error: vmax result\n");
+                print_error("Error: <max result> valore già settato\n");
         }
 
         //In caso il marcatore sia quello di aiuto (help)
@@ -147,7 +147,7 @@ void get_input(int argc, char ** argv, char ** output_file, char ** input_file, 
     //In caso un marcatore obbligatorio sia vuoto
     if (strcmp(* input_file, "") == 0 || strcmp(* output_file, "") == 0 || strcmp(* value, "") == 0)
     {
-        printf("Error: missing argument\n");
+        printf("Errore: manca qualche argomento\n");
         //Stampa del pattern degli argomenti del programma
         print_help();
     }

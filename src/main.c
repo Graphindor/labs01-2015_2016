@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	printf("# \t\tvalue:\t\033[01;36m%s\x1B[0m\n", cerca);
 
 	if (limit != -1)
-		printf("# \t\tlimit:\t\033[01;36m%d\x1B[0m\n", limit);
+		printf("# \t\tlimite:\t\033[01;36m%d\x1B[0m\n", limit);
 
 	printf("#\n");
 	//Registrazione process ID del padre "più grande"
@@ -72,6 +72,7 @@ int main(int argc, char **argv)
 	//Ripescaggio del numero di valori trovati
 	int found_count = read_fifo();
 	//Riussanto dei valori trovati depositati nella fifo
+
 	printf("#\n");
 	printf("#\n");
 
@@ -84,7 +85,7 @@ int main(int argc, char **argv)
 	print_message("Ricerca terminata.");
 	printf("# Sono state trovate %d corrispondenze su %d elementi\n", found_count, lines);
 	printf("#\n");
-	print_message("Output correctly saved on:");
+	print_message("Output salvato correttamente");
 	printf("# \t\033[01;36m%s\x1B[0m\n", output);
 
 	if(found_count == 0)
