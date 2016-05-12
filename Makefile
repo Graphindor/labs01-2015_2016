@@ -32,12 +32,13 @@ default:
 
 #compila i sorgenti (src) in eseguibili(build), deve dare il nome corretto al file
 compile: dependecies
-	$(CC) -o $(SEARCH) $(OBJ) ./build/fifo_handler.o ./build/file_manager.o ./build/split_search.o
+	$(CC) -o $(SEARCH) $(OBJ) ./build/input_parser.o ./build/fifo_handler.o ./build/file_manager.o ./build/split_search.o
 	mkdir ./tmp
 
 
 dependecies:
 	$(CC) -c -o ./build/fifo_handler.o $(LIB)fifo_handler.c
+	$(CC) -c -o ./build/input_parser.o $(LIB)input_parser.c
 	$(CC) -c -o ./build/file_manager.o $(LIB)file_manager.c
 	$(CC) -c -o ./build/split_search.o $(LIB)split_search.c
 	$(CC) -c -o $(OBJ) $(MAIN)

@@ -26,7 +26,7 @@ void addFound(char * output, int index)
 / Lettura del valore all'ennesima posizione
 */
 char * get_value(char * input, int index, int show)
-{	
+{
 	FILE * reader_offset = fopen("offsets.txt", "r");
 	// Inizializzazione delle variabili riga attuale e somma offset
 	int jumping_bytes = 0;
@@ -39,7 +39,7 @@ char * get_value(char * input, int index, int show)
 	{
 		//Incremento il numero di riga e sommo l'offset delle righe da saltare
 		lines++;
-	
+
 		jumping_bytes += value;
 	}
 
@@ -54,7 +54,7 @@ char * get_value(char * input, int index, int show)
 
 	//Allocazione della memoria necessaria per contenere il valore di input
 	char * retval = (char *) malloc(sizeof(char) * reading_bytes);
-	
+
 	//Lettura di <reading_bytes> da reader in <retval>
 	fgets(retval, reading_bytes, reader);
 
