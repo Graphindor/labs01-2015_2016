@@ -5,7 +5,12 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <string.h>
+
 #include "fifo_handler.h"
+#include "file_manager.h"
+#include "split_search.h"
+#include "input_parser.h"
 
 #define FILE_MODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
 
@@ -15,7 +20,7 @@
 void write_fifo(int s)
 {
     printf("scrivo su fifo\n");
-	int writing, n;
+	  int writing, n;
     //Apertura fifo
     writing = open("myFIFO", O_RDWR | O_NONBLOCK);
     //Scrittura da fifo
@@ -31,14 +36,14 @@ void write_fifo(int s)
 int read_fifo()
 {
     printf("read_fifo\n");
-    
+
 	int lettura, n, s;
     //Apertura fifo
     lettura = open("myFIFO", O_RDWR | O_NONBLOCK);
     n = read(lettura, &s, sizeof(s));
     //Lettura da fifo
     printf("Ho letto %i byte: %d\n", n, s);
-    
+
     return s;
 }
 
@@ -58,13 +63,13 @@ void create_fifo()
     //cancella la fifo precedente per non far andare in errore la creazione di una nuova fifo
     remove_fifo();
 
-    //Creazione della fifo 
+    //Creazione della fifo
     if (mkfifo("myFIFO", FILE_MODE) == -1)
     {
         perror("myFIFO");
         exit(1);
     }
-    
+
     //Inizializzazione della variabile condivisa con i figli
     write_fifo(0);
 }

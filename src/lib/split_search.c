@@ -5,7 +5,13 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <string.h>
+
+#include "fifo_handler.h"
+#include "file_manager.h"
 #include "split_search.h"
+#include "input_parser.h"
+
 /*
 /Funzione di controllo della raggiunta dal limite dei risultati da ritornare
 */
@@ -62,7 +68,7 @@ void split(pid_t general_master_id, char * found, int inizio, int fine, int dept
 		//Dovrebbe accadere quando si finisce la memoria o posti per i figli di un processo
 		//
 		//Il numero di fork possibili aumenta esponanzialmente in base alla profondità
-		//dell'albero che si crea seguendo la seguente formula depth = log(#elements)/log(2) 
+		//dell'albero che si crea seguendo la seguente formula depth = log(#elements)/log(2)
 		else
 		{
 			perror("Troppi fork!!!");

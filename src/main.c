@@ -7,8 +7,8 @@
 #include <fcntl.h>
 #include <string.h>
 
-#include "lib/file_manager.h"
 #include "lib/fifo_handler.h"
+#include "lib/file_manager.h"
 #include "lib/split_search.h"
 #include "lib/input_parser.h"
 
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 	//e creazione del file temporaneo di offset
 	int lines = create_offsets(input, 1);
 
-	//Chiamata della funzione splt_search
+	//Chiamata della funzione split_search
 	split(general_master_id, cerca, 0, lines - 1, 0, input, output, limit, 0);
 
 	int found_count = read_fifo();

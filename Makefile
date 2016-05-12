@@ -6,7 +6,7 @@
 
 .PHONY: compile clean build test default dependencies
 #compilatore
-CC= gcc
+CC= gcc -std=c99
 
 #path dei files del progetto
 MAIN= ./src/main.c
@@ -61,7 +61,7 @@ build:
 #chiama build e poi esegue il programma con dei casi di test
 #casi di test: intero positivo, intero negativo, va con le stringhe e gli spazi, file enorme
 # -m limite di ricerca -i imput(default imput.txt) -o output -v valore da cercare
-test: compile
+test:
 	./$(SEARCH) -i input1.txt -o output1.txt -v
 	./$(SEARCH) -i input2.txt -o output2.txt -v
 	./$(SEARCH) -i input3.txt -o output3.txt -v

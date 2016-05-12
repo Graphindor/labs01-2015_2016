@@ -1,4 +1,5 @@
-#include <string.h>
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,7 +7,12 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <string.h>
+
+#include "fifo_handler.h"
 #include "file_manager.h"
+#include "split_search.h"
+#include "input_parser.h"
 
 /*
 /Aggiunta del nuovo indice in fondo al file di <output>

@@ -5,14 +5,16 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <fcntl.h>
-
-#include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 
 // MAXLEN of strings:
 #define MAXLEN 100
 typedef char string[MAXLEN];
+
+#include "fifo_handler.h"
+#include "file_manager.h"
+#include "split_search.h"
+#include "input_parser.h"
 
 void print_help () {
 

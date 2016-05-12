@@ -5,4 +5,5 @@ void write_fifo(int s);
 int read_fifo();
 void remove_fifo();
 void create_fifo();
+
 #endif
