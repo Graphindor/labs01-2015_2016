@@ -4,18 +4,19 @@
 #Luca Alberigo 165893
 #Progetto: search distribuito
 
-.PHONY: default test clean build compile
-
+.PHONEY: compile clean build test default 
 #compilatore
 CC= gcc
 
 #path dei files del progetto
 MAIN= ./src/main.c
-LIB= ./src/lib
+
 
 #file oggetto generati durante la compilazione
 OBJ= ./build/main.o
-SEARCH=./build/splitsearch
+SEARCH= ./build/splitsearch
+
+
 
 #si lancia scrivendo makefile, mostra la lista dei comandi disponibili e le loro funzioni
 default:
@@ -29,23 +30,22 @@ default:
 
 
 #compila i sorgenti (src) in eseguibili(build), deve dare il nome corretto al file
-compile:
+compile: $(OBJ)
+	$(CC) -o $(SEARCH) $(OBJ)
+	mkdir ./tmp
+
+
+$(OBJ): 
 	$(CC) -c $(MAIN)
-	$(CC) -c $(LIB)/*.h
-
-	mv -f  *.o ./tmp
-	#mv -f *.o ./tmp
-
-	#$(CC) ./tmp/main.o -o $(SEARCH)
-
+ 
 #finita
 #pulisce i file di supporto generati durante la compilazione e l'esecuzione del progetto
 clean:
 	rm -f ./build/*
 	rm -f *.txt
 	rm -rf ./tmp
-	rm -f ./myFIFO
-
+	rm -f myFIFO
+	
 #finita
 #chiama clean e poi compile
 build:
@@ -56,7 +56,8 @@ build:
 #casi di test: intero positivo, intero negativo, va con le stringhe e gli spazi, file enorme
 # -m limite di ricerca -i imput(default imput.txt) -o output -v valore da cercare
 test:
-	./$(SEARCH) -i input1.txt -o output1.txt -v
+	@make compile
+	./$(SEARCH) -i input1.txt -o output1.txt -v  
 	./$(SEARCH) -i input2.txt -o output2.txt -v
 	./$(SEARCH) -i input3.txt -o output3.txt -v
 	./$(SEARCH) -i input4.txt -o output4.txt -v

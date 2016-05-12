@@ -50,29 +50,28 @@ def write_to_file(li, file):
 
 	with fl:
 		for a in li:
-			fl.write(str(a) + "\n")
-
+			fl.write("%.2f" % a + "\n")
 		fl.close()
 
-l1 = create_int_list(10, 100, False)
+# l1 = create_int_list(10, 100, False)
 
-write_to_file(l1, "input1.txt")
+# write_to_file(l1, "input1.txt")
 
 l2 = create_float_list(50, 2000, True)
 
 write_to_file(l2, "input2.txt")
 
-l3 = create_string_list(20, "words.txt")
+# l3 = create_string_list(20, "words.txt")
 
-write_to_file(l3, "input3.txt")
+# write_to_file(l3, "input3.txt")
 
-l4 = create_int_list(100, 3000, False)
-l4.extend(create_float_list(50, 1000, False))
+# l4 = create_int_list(100, 3000, False)
+# l4.extend(create_float_list(50, 1000, False))
 
-write_to_file(l4, "input4.txt")
+# write_to_file(l4, "input4.txt")
 
-l5 = create_int_list(100, 1000, True)
-l5.extend(create_float_list(250, 2000, True))
-l5.extend(create_string_list(3000, "words.txt"))
+# l5 = create_int_list(100, 1000, True)
+# l5.extend(create_float_list(250, 2000, True))
+# l5.extend(create_string_list(3000, "words.txt"))
 
-write_to_file(l5, "input5.txt")
+# write_to_file(l5, "input5.txt")
