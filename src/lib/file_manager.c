@@ -83,6 +83,11 @@ char * get_value(char * input, int index, int show)
 int create_offsets(char * input, int show)
 {
 	//Apertura <input>
+	if( access( input, F_OK ) == -1 ) {
+    print_error("Error: input file does not exist.");
+		exit(0);
+  }
+
 	FILE *reader = fopen(input, "r");
 	//Creazione del file temporaneo di offsets
 	FILE *writer = fopen("offsets.txt", "w");
@@ -111,13 +116,13 @@ int create_offsets(char * input, int show)
 		total_size += size;
 		count++;
 		if(show == 1)
-			printf("Ho letto %s, with size %d\n", line, size);
+			//printf("Ho letto %s, with size %d\n", line, size);
 		//Aggiunta al file di offsets
 		fprintf(writer, "%d\n", size);
 	}
 
 	if(show == 1)
-		printf("\n\nIl file pesa %d\tE ha %d righe\n", total_size, count);
+		//printf("\n\nIl file pesa %d\tE ha %d righe\n", total_size, count);
 
 	//Chiusura stream e conseguente salvataggio del file di offsets
 	fclose(reader);

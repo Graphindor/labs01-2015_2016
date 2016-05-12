@@ -24,31 +24,43 @@ int main(int argc, char **argv)
 	string cerca="";
 	int limit = -1;
 
+	printf("####################Inizio####################\n");
+	printf("#\n");
+
 	get_input(&argc, argv, &output, &input, &cerca, &limit);
 
-	printf(">>>>>>>>>>>>>>>Cominciato<<<<<<<<<<<<<<<<");
 	//Registrazione process ID del padre "più grande"
 	pid_t general_master_id = getpid();
 
 	//Creazione file vuoto di output
 	FILE *scrivi = fopen(output, "w");
 	fclose(scrivi);
-	printf("\n");
 
 	//Creazione della fifo
 	create_fifo();
 
-	printf("creazione offset\n");
+	printf("# Creazione file offset\n");
+	printf("#\n");
+
 	//Calcolo righe totali (#insieme di dati)
 	//e creazione del file temporaneo di offset
 	int lines = create_offsets(input, 1);
 
+	printf("# Numero elementi: %d\n", lines);
+	printf("#\n");
+	printf("#\n");
+	printf("#\n");
+	printf("#\n");
+
 	//Chiamata della funzione split_search
-	split(general_master_id, cerca, 0, lines - 1, 0, input, output, limit, 0);
+	split(general_master_id, cerca, 0, lines - 1, 0, input, output, limit, 0, lines);
 
 	int found_count = read_fifo();
 	//Riussanto dei valori trovati depositati nella fifo
-	printf("valori trovati %d su %d elementi...\n", found_count, lines);
+
+	printf("#\n");
+	printf("# Sono stati trovate %d corrispondenze su %d elementi\n", found_count, lines);
+  printf("#\n");
 
 	if(found_count == 0)
 		addFound(output, found_count);
@@ -57,7 +69,9 @@ int main(int argc, char **argv)
 	remove_offsets();
 
 	//Fase finale di uscita del padre unico superstite
-	printf("Sono il padre e sto terminando\n");
+	printf("# Sono il padre e sto terminando\n");
+	printf("#####################Fine#####################\n");
+
 	printf("\n");
 	return 0;
 }

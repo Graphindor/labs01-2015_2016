@@ -17,11 +17,18 @@ typedef char string[MAXLEN];
 #include "input_parser.h"
 
 void print_help () {
-
   printf("\nUsage: \n" );
   printf("splitsearch -i <input file> -o <output file> -v <value> [-m <max limit>] \n\n");
   exit(0);
+}
 
+void print_error(char * message)
+{
+    printf("# ");
+    printf("\x1B[31m");
+    printf("%s\n", message);
+    printf("\x1B[0m");
+    exit(0);
 }
 
 void get_input(int *argc, char **argv, string * out_file, string * input_file, string * value, int * max)
@@ -32,7 +39,7 @@ void get_input(int *argc, char **argv, string * out_file, string * input_file, s
         //printf("argv[%d] = %s\n", i, argv[i]);
 
         if(strcmp(argv[i], "-m")!=0 && strcmp(argv[i], "-i")!=0 && strcmp(argv[i], "-o")!=0 && strcmp(argv[i], "-v")!=0 && strcmp(argv[i], "-h")!=0) {
-            printf("Error: invalid argument\n%s",argv[i]);
+            print_error("Error: invalid arguments");
             exit(0);
         }
 
@@ -40,16 +47,16 @@ void get_input(int *argc, char **argv, string * out_file, string * input_file, s
             if (strcmp(*input_file, "")==0) {
                 i++;
                 if (i>=*argc) {
-                    printf("Error: input file\n");
+                    print_error("Error: input file");
                     exit(0);
                 }
                 if (strncmp(argv[i], "-", 1)==0) {
-                    printf("Error: input file\n");
+                    print_error("Error: input file");
                     exit(0);
                 }
                 strcpy(*input_file,argv[i]);
             } else {
-                printf("Error: input file\n");
+                print_error("Error: input file");
                 exit(0);
             }
         }
@@ -59,16 +66,16 @@ void get_input(int *argc, char **argv, string * out_file, string * input_file, s
             if (strcmp(*out_file, "")==0) {
                 i++;
                 if (i>=*argc) {
-                    printf("Error: output file\n");
+                    print_error("Error: output file");
                     exit(0);
                 }
                 if (strncmp(argv[i], "-", 1)==0) {
-                    printf("Error: output file\n");
+                    print_error("Error: output file");
                     exit(0);
                 }
                 strcpy(*out_file,argv[i]);
             } else {
-                printf("Error: output file\n");
+                print_error("Error: output file");
                 exit(0);
             }
         }
@@ -77,12 +84,12 @@ void get_input(int *argc, char **argv, string * out_file, string * input_file, s
             if (strcmp(*value, "")==0) {
                 i++;
                 if (i>=*argc) {
-                    printf("Error: value\n");
+                    print_error("Error: value");
                     exit(0);
                 }
                 strcpy(*value,argv[i]);
             } else {
-                printf("Error: value\n");
+                print_error("Error: value");
                 exit(0);
             }
         }
@@ -91,22 +98,22 @@ void get_input(int *argc, char **argv, string * out_file, string * input_file, s
             if (*max==-1) {
                 i++;
                 if (i>=*argc) {
-                    printf("Error: max result\n");
+                    print_error("Error: max result");
                     exit(0);
                 }
                 if (strncmp(argv[i], "-", 1)==0) {
-                    printf("Error: max result\n");
+                    print_error("Error: max result");
                     exit(0);
                 }
 
                 *max = atoi(argv[i]);
 
                 if(*max==0) {
-                  printf("Error: invalid max result\n");
+                  print_error("Error: invalid max result");
                   exit(0);
                 }
             } else {
-                printf("Error: max result\n");
+                print_error("Error: max result");
                 exit(0);
             }
         }
@@ -119,7 +126,7 @@ void get_input(int *argc, char **argv, string * out_file, string * input_file, s
     }
 
     if (strcmp(*input_file, "")==0 || strcmp(*out_file, "")==0 || strcmp(*value, "")==0) {
-        printf("Error: missing argument\n");
+        print_error("Error: missing argument");
         print_help();
         exit(0);
     }

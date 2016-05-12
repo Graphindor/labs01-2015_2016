@@ -19,13 +19,13 @@
 */
 void write_fifo(int s)
 {
-    printf("scrivo su fifo\n");
+    //printf("scrivo su fifo\n");
 	  int writing, n;
     //Apertura fifo
     writing = open("myFIFO", O_RDWR | O_NONBLOCK);
     //Scrittura da fifo
     n = write(writing, &s, sizeof(s));
-    printf("Ho scritto %d di %i byte.\n", s, n);
+    //printf("Ho scritto %d di %i byte.\n", s, n);
 }
 
 /*
@@ -35,14 +35,14 @@ void write_fifo(int s)
 */
 int read_fifo()
 {
-    printf("read_fifo\n");
+    //printf("read_fifo\n");
 
 	int lettura, n, s;
     //Apertura fifo
     lettura = open("myFIFO", O_RDWR | O_NONBLOCK);
     n = read(lettura, &s, sizeof(s));
     //Lettura da fifo
-    printf("Ho letto %i byte: %d\n", n, s);
+    //printf("Ho letto %i byte: %d\n", n, s);
 
     return s;
 }

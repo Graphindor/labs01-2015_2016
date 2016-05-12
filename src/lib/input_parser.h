@@ -7,5 +7,6 @@ typedef char string[MAXLEN];
 
 void get_input(int *argc, char **argv, string * out_file, string * input_file, string * value, int * max);
 void print_help();
+void print_error();
 
 #endif
