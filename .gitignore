@@ -1,2 +1,5 @@
 *.o
 *.out
+*splitsearch
+*offsets.txt
+*~
