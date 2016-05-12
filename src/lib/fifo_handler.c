@@ -20,13 +20,12 @@
 */
 void write_fifo(int s)
 {
-    //printf("scrivo su fifo\n");
-	  int writing, n;
+    //Inizializzazione varibili di scrittura
+    int writing, n;
     //Apertura fifo
     writing = open("myFIFO", O_RDWR | O_NONBLOCK);
     //Scrittura da fifo
     n = write(writing, &s, sizeof(s));
-    //printf("Ho scritto %d di %i byte.\n", s, n);
 }
 
 /*
@@ -36,15 +35,13 @@ void write_fifo(int s)
 */
 int read_fifo()
 {
-    //printf("read_fifo\n");
-
-	int lettura, n, s;
+    //Inizializzazione variabili di lettura
+    int lettura, n, s;
     //Apertura fifo
     lettura = open("myFIFO", O_RDWR | O_NONBLOCK);
-    n = read(lettura, &s, sizeof(s));
     //Lettura da fifo
-    //printf("Ho letto %i byte: %d\n", n, s);
-
+    n = read(lettura, &s, sizeof(s));
+    //Ritorno del valore letto da myFIFO
     return s;
 }
 
@@ -63,15 +60,14 @@ void create_fifo()
 {
     //cancella la fifo precedente per non far andare in errore la creazione di una nuova fifo
     remove_fifo();
-
+    
     //Creazione della fifo
     if (mkfifo("myFIFO", FILE_MODE) == -1)
-    {
-        perror("myFIFO");
-        exit(1);
-    }
+        //Seganalazione di errore se la creazione della fifo non è andata a buon fine
+        print_error("Error: creazione di myFIFO");
 
     //Inizializzazione della variabile condivisa con i figli
     write_fifo(0);
-		print_message("FIFO correctly generated.");
+	//Seganalazione dell'avvenuto comlpetamento della fifo senza errori
+    print_message("FIFO correctly generated.");
 }

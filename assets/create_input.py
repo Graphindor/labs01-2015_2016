@@ -50,7 +50,7 @@ def write_to_file(li, file):
 
 	with fl:
 		for a in li:
-			fl.write("%.2f" % a + "\n")
+			fl.write(str(a) + "\n")
 		fl.close()
 
 # l1 = create_int_list(10, 100, False)

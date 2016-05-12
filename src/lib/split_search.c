@@ -16,7 +16,7 @@
 /*
 /Funzione di controllo della raggiunta dal limite dei risultati da ritornare
 */
-void check_limit(int limit)
+void check_limit(int limit, pid_t general_master_id)
 {
 	//Check valore di risultati già trovati e riscrittura per tenerlo dentro la fifo
 	int val = read_fifo();
@@ -25,8 +25,25 @@ void check_limit(int limit)
 	//Termina programma risalendo la gerarchia dei processi
 	if(val >= limit)
 	{
-		printf("Limite risultati trovati raggiunto...\n Esco e risalgo le gerarchie verso il padre per terminare il preogramma");
-		exit(0);
+		int id = getpid();
+		char idc[100];
+
+		sprintf(idc, "Terminazione processo figlio - id: %d", id);
+
+		if(general_master_id != id)
+		{
+
+			printf("\033[1A");
+			printf("\033[1A");
+
+			print_alert(idc);
+			printf("\033[2K");
+			printf("#\n");
+			printf("\033[2K");
+			printf("#\n");
+			exit(0);
+			//print_error("Limite risultati trovati raggiunto...\n Esco e risalgo le gerarchie verso il padre per terminare il preogramma");
+		}
 	}
 }
 
@@ -38,7 +55,7 @@ void split(pid_t general_master_id, char * found, int inizio, int fine, int dept
 {
 	//Controllo superamento limite risultati ottenuti se settato
 	if(limit > 0)
-		check_limit(limit);
+		check_limit(limit, general_master_id);
 	//Controllo se ho più di un indice tra le mani
 	//in tal caso taglio a metà la mia fetta di indici
 	if(inizio < fine)
@@ -50,16 +67,16 @@ void split(pid_t general_master_id, char * found, int inizio, int fine, int dept
 		//Il figlio va sempre a sinistra <---
 		if(result_fork == 0)
 		{
-			// printf("PID: %d inizio => %d \t fine => %d   %d sinistra\n",getpid(), inizio, centro, depth);
+			//Incremento della varibile profondità
 			depth++;
 			split(general_master_id, found, inizio, centro, depth, input, output, limit, total_length);
 		}
 		//Il padre aspetta il figlio poi va a destra --->
 		else if(result_fork > 0)
 		{
-			// printf("PID: %d inizio => %d \t fine => %d   %d destra\n",getpid(), centro+1, fine, depth);
 			int retval_child;
 			wait(&retval_child);
+			//Incremento della varibile profondità
 			depth++;
 			// Vado in profondità e/o continuo la ricerca se il figlio non da errori
 			if(retval_child != -1)
@@ -80,10 +97,6 @@ void split(pid_t general_master_id, char * found, int inizio, int fine, int dept
 	{
 		//Valore che verrà letto usando gli offset
 		char * item = get_value(input, inizio);
-		// if(show == 1)
-			//printf("\t\tè rimasto un solo elemento => %s all'altezza %d e indice %d\n", item, depth, inizio);
-
-  //sleep(1);
 
 		//Controllo se il valore cercato e quello letto sono identici
 		if(strcmp(found, item) == 0)
@@ -98,6 +111,7 @@ void split(pid_t general_master_id, char * found, int inizio, int fine, int dept
 			print_found(inizio + 1);
 		}
 
+		//Aggiorna la progressbar
 		print_progressbar(inizio + 1, total_length, 50);
 
 		//Se non sono il padre ritorno 0(zero) per comunicare

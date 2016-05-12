@@ -2,7 +2,7 @@
 #Anas El Amraoui 173767
 #Giacomo Rossetto 171314
 #Luca Alberigo 165893
-#Progetto: search distribuito
+#Progetto: Spit-search multiprocesso
 
 .PHONY: compile clean build test default dependencies
 #compilatore
@@ -63,7 +63,7 @@ build:
 # -m limite di ricerca -i imput(default imput.txt) -o output -v valore da cercare
 test: build
 	$(SEARCH) -i $(ASSETS)input1.txt -o $(ASSETS)output1.txt -v 1
-	$(SEARCH) -i $(ASSETS)input2.txt -o $(ASSETS)output2.txt -v 32
-	$(SEARCH) -i $(ASSETS)input3.txt -o $(ASSETS)output3.txt -v 123
-	$(SEARCH) -i $(ASSETS)input4.txt -o $(ASSETS)output4.txt -v "sistemi operativi"
+	$(SEARCH) -i $(ASSETS)input2.txt -o $(ASSETS)output2.txt -v -9.51912242165
+	$(SEARCH) -i $(ASSETS)input3.txt -o $(ASSETS)output3.txt -v "pera"
+	$(SEARCH) -i $(ASSETS)input4.txt -o $(ASSETS)output4.txt -v 33
 	$(SEARCH) -i $(ASSETS)input5.txt -o $(ASSETS)output5.txt -v "sistemi operativi"

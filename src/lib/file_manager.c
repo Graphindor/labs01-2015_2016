@@ -34,7 +34,7 @@ void add_found(char * output, int index)
 */
 char * get_value(char * input, int index)
 {
-	FILE * reader_offset = fopen("offsets.txt", "r");
+	FILE * reader_offset = fopen("./tmp/offsets.txt", "r");
 	// Inizializzazione delle variabili riga attuale e somma offset
 	int jumping_bytes = 0;
 	int lines = 0;
@@ -86,7 +86,7 @@ int create_offsets(char * input)
 
 	FILE *reader = fopen(input, "r");
 	//Creazione del file temporaneo di offsets
-	FILE *writer = fopen("offsets.txt", "w");
+	FILE *writer = fopen("./tmp/offsets.txt", "w");
 	//Creazione variabile che conterrà la lunghezza di una riga
 	int size;
 	//Contatore dimensione totale del file
@@ -111,10 +111,10 @@ int create_offsets(char * input)
 		//Aggiornamento variabili riga e  dimensione totale
 		total_size += size;
 		count++;
-
 		//Aggiunta al file di offsets
 		fprintf(writer, "%d\n", size);
 	}
+
 
 	//Chiusura stream e conseguente salvataggio del file di offsets
 	fclose(reader);
@@ -130,6 +130,6 @@ int create_offsets(char * input)
 */
 void remove_offsets()
 {
-	remove("offsets.txt");
+	remove("./tmp/offsets.txt");
 	print_message("Offsets file correctly removed.");
 }
