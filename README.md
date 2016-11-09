@@ -1,5 +1,6 @@
-# Final assignment
-## for Operating Systems course at UNITN (2015-2016)
+# Final assignment for Operating Systems course at UNITN (2015-2016)
+
+**Description:**
 
 > RELAZIONE PROGETTO 2015-2016
 Progetto di: Anas El Amraoui 173767 Giacomo Rossetto 171314 Luca Alberigo 165893
